@@ -6,11 +6,13 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 autopep8 = "*"
+rope = "*"
 
 [packages]
 python-dotenv = "*"
 spacy = "*"
 sklearn = "*"
+python-docx = "*"
 
 [requires]
 python_version = "3.7"
