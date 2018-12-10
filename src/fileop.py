@@ -60,13 +60,12 @@ class FileOperation(object):
         finally:
             del archive_path
 
-    def __write_to_output(self):
+    def __write_to_output(self, content):
         output_path = pathlib.Path(OUTPUT_PATH)
         try:
             if not output_path.exists():
                 output_path.mkdir(parents=True, exist_ok=True)
-            os.rename(self.__construct_file_path(),
-                      output_path / self.file_name)
+            
         finally:
             del output_path
 
@@ -78,7 +77,7 @@ class FileOperation(object):
             self.__is_valid_file(dox)
             for para in dox.paragraphs:
                 yield para.text.strip()
-            self.__move_processed_to_archive()
+            # self.__move_processed_to_archive()
         finally:
             del dox
             del construct_file_path
@@ -89,10 +88,10 @@ class FileOperation(object):
         try:
             pdf_reader = fitz.open(construct_file_path)
             self.__is_valid_file(pdf_reader)
-            print(f'PDF Pages: {pdf_reader.pageCount}')
+            # print(f'PDF Pages: {pdf_reader.pageCount}')
             for page in range(pdf_reader.pageCount):
                 yield pdf_reader.loadPage(page).getText('text')
-            self.__move_processed_to_archive()
+            # self.__move_processed_to_archive()
         finally:
             del pdf_reader
             del construct_file_path
@@ -115,12 +114,16 @@ if __name__ == '__main__':
     file_counter = 0
     for f in walk_dir():
         fileOp = FileOperation(f)
+        hitFlag = False
         suffix = f.split('.')[1]
         if suffix in ('docx', 'doc'):
+            hitFlag = True
             for i in fileOp.read_docx():
                 pass
         elif suffix == 'pdf':
+            hitFlag = True
             for obj in fileOp.read_pdf():
                 pass
         file_counter += 1
-        print(f'{file_counter}. File: {f}')
+        if hitFlag:
+            print(f'{file_counter}. File: {f}')
