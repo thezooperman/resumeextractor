@@ -1,1 +1,6 @@
 https://automatetheboringstuff.com/chapter13/
+https://github.com/divapriya/Language_Processing
+https://github.com/ashaywalke/resume-parser/blob/master/resumeparser.py
+https://github.com/bjherger/ResumeParser/blob/master/bin/main.py
+
+XlsxWriter - https://xlsxwriter.readthedocs.io/
