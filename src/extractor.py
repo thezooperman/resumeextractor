@@ -3,7 +3,7 @@
 import errno
 import os
 import pathlib
-import PyPDF2
+import fitz
 
 from docx import Document
 
@@ -13,14 +13,17 @@ OUTPUT_PATH = BASE_DIR / 'output'
 ARCHIVE_PATH = BASE_DIR / 'archive'
 
 
-class FileOperation:
+class FileOperation(object):
     '''
     Utility to read, write files.
     Also has basic validations.
     TODO: 
         # Unit Testing
         # using spacy for NER
+        # implement logging
     '''
+
+    __slots__ = ('file_name', )
 
     def __init__(self, file_name=None):
         self.file_name = file_name
@@ -41,6 +44,11 @@ class FileOperation:
 
     def __construct_file_path(self):
         return INPUT_PATH / self.file_name
+
+    def __is_valid_file(self, fp):
+        if not fp:
+            raise ValueError(f'{self.file_name}',
+                             errno.EBADFD, os.strerror(errno.EBADFD))
 
     def __move_processed_to_archive(self):
         archive_path = pathlib.Path(ARCHIVE_PATH)
@@ -67,9 +75,7 @@ class FileOperation:
         construct_file_path = self.__construct_file_path()
         try:
             dox = Document(construct_file_path)
-            if not dox:
-                raise ValueError(f'{self.file_name}',
-                                 errno.EBADFD, os.strerror(errno.EBADFD))
+            self.__is_valid_file(dox)
             for para in dox.paragraphs:
                 yield para.text.strip()
             self.__move_processed_to_archive()
@@ -81,36 +87,40 @@ class FileOperation:
         ''' Read a PDF file and return contents as generator object'''
         construct_file_path = self.__construct_file_path()
         try:
-            fp = open(construct_file_path, 'rb')
-            pdf_reader = PyPDF2.PdfFileReader(fp)
-            if not pdf_reader:
-                raise ValueError(f'{self.file_name}',
-                                 errno.EBADFD, os.strerror(errno.EBADFD))
-            print(f'PDF Pages: {pdf_reader.numPages}')
-            for page in range(pdf_reader.numPages):
-                content = pdf_reader.getPage(page)
-                yield content.extractText().strip()
+            pdf_reader = fitz.open(construct_file_path)
+            self.__is_valid_file(pdf_reader)
+            print(f'PDF Pages: {pdf_reader.pageCount}')
+            for page in range(pdf_reader.pageCount):
+                yield pdf_reader.loadPage(page).getText('text')
             self.__move_processed_to_archive()
         finally:
             del pdf_reader
-            fp.close()
-            del fp
             del construct_file_path
 
 
+def walk_dir(input_dir=None):
+    '''Walk through an input(resumes) directory.
+        If a directory is not provided, the 'input'
+        folder is the default directory set
+    '''
+    if not input_dir:
+        input_dir = INPUT_PATH
+    # iterate through directory
+    for elem in input_dir.iterdir():
+        if elem.is_file():
+            yield elem.name
+
+
 if __name__ == '__main__':
-    print('Read DocX')
-    print('-' * 20)
-    dummyFile = 'demo.docx'
-    read_file = FileOperation(dummyFile)
-    print(read_file.file_name)
-    [print(p) for p in read_file.read_docx()]
-    del read_file
-    print('Read PDF')
-    print('-' * 20)
-    dummyFile = 'combinedminutes.pdf'
-    read_file = FileOperation(dummyFile)
-    print(read_file.file_name)
-    for idx, p in enumerate(read_file.read_pdf()):
-        if idx == 0:
-            print(p)
+    file_counter = 0
+    for f in walk_dir():
+        fileOp = FileOperation(f)
+        suffix = f.split('.')[1]
+        if suffix in ('docx', 'doc'):
+            for i in fileOp.read_docx():
+                pass
+        elif suffix == 'pdf':
+            for obj in fileOp.read_pdf():
+                pass
+        file_counter += 1
+        print(f'{file_counter}. File: {f}')

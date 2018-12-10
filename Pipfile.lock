@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f8b80898cc053fd1b6eb3d9b2a743eb5e2e7997a1b1a0ead9a2b5b8f1aae672e"
+            "sha256": "28d323fda6a746e4a6bd7e6c58669a1c5560596f4300203b955d570988ffd7e9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -235,12 +235,33 @@
             ],
             "version": "==2.0.1"
         },
-        "pypdf2": {
+        "pymupdf": {
             "hashes": [
-                "sha256:e28f902f2f0a1603ea95ebe21dff311ef09be3d0f0ef29a3e44a932729564385"
+                "sha256:103019ed859e6e8ed8a2f9d67a407c024b18305451944d14ef523a5bb8256386",
+                "sha256:22e1d633e37f5d0fa79b26b65cec030c6a28520d11bb29a778faacebc3b60aaa",
+                "sha256:2efab35109596afc8e6a339d0be27fc083416192ff3a96e418850774c8f9f742",
+                "sha256:315d27de9d2fc3f22ed89e0a2a413e9dd74c1b2240c230e0f86b8f3fa319febb",
+                "sha256:43de73a69aa3c3b5dffd338244b47b2909bf9a7ead073391e2256dd014780f8c",
+                "sha256:47ce626c1298ca95aadd83ec5d263f8ebaa52742bac5aae2ffe5ca0de2a34769",
+                "sha256:5138fb87147cb6e259af2b8646a826656cf8deca0705baa65c49a9f9427df9e3",
+                "sha256:5a9f24061fe5368826e7ff7a8731ed92d5ffd75a0a49e94ee40e377a3275e0a0",
+                "sha256:662a073a12e2d1e802ac7d3ea0062a20451c2567e735cf9ce91ef6758c7a0131",
+                "sha256:7f87ece6225bd0333e3f8ec6afd7d5ee9f2d1e80a09af99f289e90c331f86aa7",
+                "sha256:905f19a8e671f699f2b499a5c9413ebfd9cba41737c59827f9152905150ec1e7",
+                "sha256:95b04a39a3441a6aac939368eea4e43d0c4d31a436a284439fe8f7d617f963de",
+                "sha256:99871c9d669b68ca8240cedb00cd204affee8df6a14d5ac70580bd398ec2e823",
+                "sha256:a57434f6bb33478da4d0bdd3021d98ea7b68ec5834585dd63306cafd003b70e4",
+                "sha256:a678af681ba8d12c82165aea149dd3b7ffda9ecd37969260b4267d9f9b8f65ad",
+                "sha256:b84635b3825a5fd69f6fc14d043d60a547f2bf1ae5970dbefce9d19497a4d84b",
+                "sha256:be71f7181022d36c98730d7519765f8eef2b258ac1a99620e2e7dcb807007452",
+                "sha256:d1b17aa8ee2c3169146d3589928145080ddf028bf5440efbcd09704b3afb5b06",
+                "sha256:d594ae19e44f3d4b103e4e99b799621cfa88666e63f226fbd1de0b940edc54b8",
+                "sha256:dd0ae6afae6d3778af951b42918270548c06b98296379ec70ce46ce7264f6b31",
+                "sha256:e284c48f35a89507f9b20831d2ef64a630e296e08623126e5ed4c2960164aeed",
+                "sha256:e649deab939b81260c58d87646b5b3c22b69d120bce519edfb212108b89a7f50"
             ],
             "index": "pypi",
-            "version": "==1.26.0"
+            "version": "==1.14.3"
         },
         "python-docx": {
             "hashes": [
