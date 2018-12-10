@@ -13,7 +13,7 @@ python-dotenv = "*"
 spacy = "*"
 sklearn = "*"
 python-docx = "*"
-pypdf2 = "*"
+pymupdf = "*"
 
 [requires]
 python_version = "3.7"
