@@ -76,7 +76,7 @@ class FileOperation(object):
             dox = Document(construct_file_path)
             self.__is_valid_file(dox)
             for para in dox.paragraphs:
-                yield para.text.strip()
+                yield para.text.strip().replace('\n', ' ')
             # self.__move_processed_to_archive()
         finally:
             del dox
@@ -90,7 +90,7 @@ class FileOperation(object):
             self.__is_valid_file(pdf_reader)
             # print(f'PDF Pages: {pdf_reader.pageCount}')
             for page in range(pdf_reader.pageCount):
-                yield pdf_reader.loadPage(page).getText('text')
+                yield pdf_reader.loadPage(page).getText('html').strip().replace('\n', ' ')
             # self.__move_processed_to_archive()
         finally:
             del pdf_reader
