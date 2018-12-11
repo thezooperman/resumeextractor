@@ -105,3 +105,7 @@ venv.bak/
 
 # vscode
 .vscode/
+
+#ignore google secret
+/client_secret_*.json
+/Learn Project-*.json
