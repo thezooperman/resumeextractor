@@ -48,7 +48,7 @@ class FileOperation(object):
     def __is_valid_file(self, fp):
         if not fp:
             raise ValueError(f'{self.file_name}',
-                             errno.EBADFD, os.strerror(errno.EBADFD))
+                             errno.EBADF, os.strerror(errno.EBADF))
 
     def __move_processed_to_archive(self):
         archive_path = pathlib.Path(ARCHIVE_PATH)
@@ -65,7 +65,7 @@ class FileOperation(object):
         try:
             if not output_path.exists():
                 output_path.mkdir(parents=True, exist_ok=True)
-            
+
         finally:
             del output_path
 
