@@ -15,6 +15,7 @@ sklearn = "*"
 python-docx = "*"
 pymupdf = "*"
 google-cloud-language = "*"
+beautifulsoup4 = "*"
 
 [requires]
 python_version = "3.7"
