@@ -4,3 +4,5 @@ https://github.com/ashaywalke/resume-parser/blob/master/resumeparser.py
 https://github.com/bjherger/ResumeParser/blob/master/bin/main.py
 
 XlsxWriter - https://xlsxwriter.readthedocs.io/
+
+Download spacy modules - python -m spacy download en
