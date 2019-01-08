@@ -1,16 +1,24 @@
 # /usr/bin/env python
 
 import errno
+import re
 import os
 import pathlib
+import zipfile
+from xml.etree.cElementTree import XML
+
 import fitz
 
-from docx import Document
-
 BASE_DIR = pathlib.Path.cwd()
-INPUT_PATH = BASE_DIR / 'input'
+INPUT_PATH = BASE_DIR / 'test_data'
 OUTPUT_PATH = BASE_DIR / 'output'
 ARCHIVE_PATH = BASE_DIR / 'archive'
+WORD_NAMESPACE = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
+PARA = WORD_NAMESPACE + 'p'
+TEXT = WORD_NAMESPACE + 't'
+TABLE = WORD_NAMESPACE + 'tbl'
+ROW = WORD_NAMESPACE + 'tr'
+CELL = WORD_NAMESPACE + 'tc'
 
 
 class FileOperation(object):
@@ -69,19 +77,6 @@ class FileOperation(object):
         finally:
             del output_path
 
-    def read_docx(self):
-        ''' Read a Doc/Docx file and return contents as generator object'''
-        construct_file_path = self.__construct_file_path()
-        try:
-            dox = Document(construct_file_path)
-            self.__is_valid_file(dox)
-            for para in dox.paragraphs:
-                yield para.text.strip().replace('\n', ' ')
-            # self.__move_processed_to_archive()
-        finally:
-            del dox
-            del construct_file_path
-
     def read_pdf(self):
         ''' Read a PDF file and return contents as generator object'''
         construct_file_path = self.__construct_file_path()
@@ -90,11 +85,33 @@ class FileOperation(object):
             self.__is_valid_file(pdf_reader)
             # print(f'PDF Pages: {pdf_reader.pageCount}')
             for page in range(pdf_reader.pageCount):
-                yield pdf_reader.loadPage(page).getText('html').strip().replace('\n', ' ')
+                yield ' '.join(_ for _ in pdf_reader.loadPage(page).getText('html').split())
             # self.__move_processed_to_archive()
         finally:
             del pdf_reader
             del construct_file_path
+
+    def read_docx(self):
+        """
+        Take the path of a docx file as argument, return the text in unicode.
+        """
+        try:
+            document = zipfile.ZipFile(self.__construct_file_path())
+            xml_content = document.read('word/document.xml')
+            tree = XML(xml_content)
+
+            for paragraph in tree.getiterator(PARA):
+                for node in paragraph.getiterator(TEXT):
+                    if node.text:
+                        yield ' '.join(_ for _ in node.text.split())
+            # self.__move_processed_to_archive()
+        finally:
+            if document is not None:
+                document.close()
+                del document
+            if tree is not None:
+                tree.clear()
+                del tree
 
 
 def walk_dir(input_dir=None):
