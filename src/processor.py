@@ -173,11 +173,12 @@ def main(model=None, output_dir=None, n_iter=100):
     #         sb.close()
     # for text, _ in TRAIN_DATA:
     # for text, in test_data:
+    print('\nTesting on Test Data')
     for text, _ in test_data:
         doc = nlp(text)
         print("Entities", [(ent.text, ent.label_) for ent in doc.ents])
     # print("Tokens", [(t.text, t.ent_type_, t.ent_iob) for t in doc])
-
+    print('\nTesting on Train Data')
     # save model to output directory
     if output_dir is not None:
         output_dir = BASE_DIR / output_dir #pathlib.Path(output_dir)
