@@ -10,7 +10,7 @@ from xml.etree.cElementTree import XML
 import fitz
 
 BASE_DIR = pathlib.Path.cwd()
-INPUT_PATH = BASE_DIR / 'test_data'
+INPUT_PATH = BASE_DIR / 'input'
 OUTPUT_PATH = BASE_DIR / 'output'
 ARCHIVE_PATH = BASE_DIR / 'archive'
 WORD_NAMESPACE = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
@@ -85,7 +85,7 @@ class FileOperation(object):
             self.__is_valid_file(pdf_reader)
             # print(f'PDF Pages: {pdf_reader.pageCount}')
             for page in range(pdf_reader.pageCount):
-                yield ' '.join(_ for _ in pdf_reader.loadPage(page).getText('html').split())
+                yield ' '.join(_ for _ in pdf_reader.loadPage(page).getText('html').split(None))
             # self.__move_processed_to_archive()
         finally:
             del pdf_reader
@@ -95,6 +95,7 @@ class FileOperation(object):
         """
         Take the path of a docx file as argument, return the text in unicode.
         """
+        document = tree = None
         try:
             document = zipfile.ZipFile(self.__construct_file_path())
             xml_content = document.read('word/document.xml')
@@ -103,13 +104,13 @@ class FileOperation(object):
             for paragraph in tree.getiterator(PARA):
                 for node in paragraph.getiterator(TEXT):
                     if node.text:
-                        yield ' '.join(_ for _ in node.text.split())
+                        yield ' '.join(_ for _ in node.text.split(None))
             # self.__move_processed_to_archive()
         finally:
-            if document is not None:
+            if document:
                 document.close()
                 del document
-            if tree is not None:
+            if tree:
                 tree.clear()
                 del tree
 
@@ -133,7 +134,7 @@ if __name__ == '__main__':
         fileOp = FileOperation(f)
         hitFlag = False
         suffix = f.split('.')[1]
-        if suffix in ('docx', 'doc'):
+        if suffix in ('docx'):
             hitFlag = True
             for i in fileOp.read_docx():
                 pass
