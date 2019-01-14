@@ -66,7 +66,7 @@ def test_read():
             fileOp = FileOperation(f)
             sb = StringIO()
             suffix = f.split('.')[1]
-            if suffix in ('docx', 'doc'):
+            if suffix in ('docx'):
                 pass
                 sb.write(' '.join([clean_text(line) for line
                                    in fileOp.read_docx()]))
@@ -116,39 +116,38 @@ def convert_dataturks_to_spacy(dataturks_JSON_FilePath):
 
 
 def run_model(model):
+    print('Running against the trained model')
     nlp = spacy.load(model)  # load existing spaCy model
     print("Loaded model '%s'" % model)
+    print()
     for f in walk_dir():
         fileOp = FileOperation(f)
         sb = StringIO()
         suffix = f.split('.')[1]
-        if suffix in ('docx', 'doc'):
-            pass
+        if suffix in ('docx'):
             sb.write(' '.join([clean_text(line) for line
                                 in fileOp.read_docx()]))
             print(f'File Name: {f}')
             print('*' * 60)
-            print()
         elif suffix == 'pdf':
             sb.write(''.join([clean_text(strip_html(line)) for line
                             in fileOp.read_pdf()]))
             print(f'File Name: {f}')
             print('*' * 60)
-            print()
         doc = nlp(sb.getvalue().strip())
         sb.close()
         print("Entities", [(ent.text, ent.label_) for ent in doc.ents])
-
+        print()
 
 @plac.annotations(
     model=("Model name. Defaults to blank 'en' model.", "option", "m", str),
     output_dir=("Optional output directory", "option", "o", pathlib.Path),
     n_iter=("Number of training iterations", "option", "n", int),
-    train_test=("Train(True) or Test(False) model", "option", "t", bool),
+    train_test=("Train(True) or Test(False) model", "option", "t", str),
 )
-def main(model=None, output_dir=None, n_iter=100, train_test=False):
+def main(model=None, output_dir=None, n_iter=100, train_test="False"):
     """Load the model, set up the pipeline and train the entity recognizer."""
-    if train_test == False:
+    if train_test == "False":
         run_model(model)
     else:
         if model is not None:
@@ -209,14 +208,6 @@ def main(model=None, output_dir=None, n_iter=100, train_test=False):
         test_data = []
         test_data = convert_dataturks_to_spacy(
             BASE_DIR / 'test_data' / 'testdata.json')
-        # for f in walk_dir():
-        #     fileOp = FileOperation(f)
-        #     sb = StringIO()
-        #     suffix = f.split('.')[1]
-        #     if suffix == 'pdf':
-        #         sb.write(''.join([clean_text(strip_html(line)) for line in fileOp.read_pdf()]))
-        #         test_data.append(sb.getvalue().strip())
-        #         sb.close()
         # for text, _ in TRAIN_DATA:
         # for text, in test_data:
         print('\nTesting on Test Data')
@@ -240,26 +231,6 @@ def main(model=None, output_dir=None, n_iter=100, train_test=False):
                 doc = nlp2(text)
                 print("Entities", [(ent.text, ent.label_) for ent in doc.ents])
                 # print("Tokens", [(t.text, t.ent_type_, t.ent_iob) for t in doc])
-
-        # for f in walk_dir():
-        #     fileOp = FileOperation(f)
-        #     sb = StringIO()
-        #     suffix = f.split('.')[1]
-        #     if suffix in ('docx', 'doc'):
-        #         pass
-        #         sb.write(' '.join([clean_text(line) for line
-        #                            in fileOp.read_docx()]))
-        #         print(f'File Name: {f}')
-        #         print('*' * 60)
-        #         print()
-        #     elif suffix == 'pdf':
-        #         sb.write(''.join([clean_text(strip_html(line)) for line
-        #                       in fileOp.read_pdf()]))
-        #         print(f'File Name: {f}')
-        #         print('*' * 60)
-        #     print(sb.getvalue().strip())
-        #     print()
-        #     sb.close()
 
 
 if __name__ == '__main__':
