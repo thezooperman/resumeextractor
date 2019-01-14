@@ -10,7 +10,7 @@ from xml.etree.cElementTree import XML
 import fitz
 
 BASE_DIR = pathlib.Path.cwd()
-INPUT_PATH = BASE_DIR / 'input'
+INPUT_PATH = BASE_DIR / 'test_data'
 OUTPUT_PATH = BASE_DIR / 'output'
 ARCHIVE_PATH = BASE_DIR / 'archive'
 WORD_NAMESPACE = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
