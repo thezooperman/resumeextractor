@@ -10,7 +10,7 @@ from xml.etree.cElementTree import XML
 import fitz
 
 BASE_DIR = pathlib.Path.cwd()
-INPUT_PATH = BASE_DIR / 'input'
+INPUT_PATH = BASE_DIR / 'test_data'
 OUTPUT_PATH = BASE_DIR / 'output'
 ARCHIVE_PATH = BASE_DIR / 'archive'
 WORD_NAMESPACE = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
@@ -86,7 +86,7 @@ class FileOperation(object):
             # print(f'PDF Pages: {pdf_reader.pageCount}')
             for page in range(pdf_reader.pageCount):
                 yield ' '.join(_ for _ in pdf_reader.loadPage(page).getText('html').split(None))
-            # self.__move_processed_to_archive()
+                # self.__move_processed_to_archive()
         finally:
             del pdf_reader
             del construct_file_path
