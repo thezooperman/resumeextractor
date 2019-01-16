@@ -10,7 +10,7 @@ from xml.etree.cElementTree import XML
 import fitz
 
 BASE_DIR = pathlib.Path.cwd()
-INPUT_PATH = BASE_DIR / 'test_data'
+INPUT_PATH = BASE_DIR / 'input'
 OUTPUT_PATH = BASE_DIR / 'output'
 ARCHIVE_PATH = BASE_DIR / 'archive'
 WORD_NAMESPACE = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
@@ -102,11 +102,14 @@ class FileOperation(object):
             document = zipfile.ZipFile(self.__construct_file_path())
             xml_content = document.read('word/document.xml')
             tree = XML(xml_content)
-
+            paragraphs = []
             for paragraph in tree.getiterator(PARA):
-                for node in paragraph.getiterator(TEXT):
-                    if node.text:
-                        yield ' '.join(_ for _ in node.text.split(None))
+                texts = [node.text
+                         for node in paragraph.getiterator(TEXT)
+                         if node.text]
+                if texts:
+                    paragraphs.append(''.join(texts))
+            return ' '.join(_ for _ in '\n'.join(paragraphs).split())
             # self.__move_processed_to_archive()
         finally:
             if document:
