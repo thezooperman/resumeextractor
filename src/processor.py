@@ -85,8 +85,8 @@ def test_read():
         for f in walk_dir():
             fileOp = FileOperation(f)
             sb = StringIO()
-            suffix = f.split('.')[1]
-            if suffix in ('docx'):
+            suffix = f.split('.')[1].lower()
+            if suffix == 'docx':
                 sb.write(' '.join(clean_text(line) for line
                                   in fileOp.read_docx()))
                 print(f'File Name: {f}')
@@ -145,8 +145,8 @@ def run_model(model):
     for f in walk_dir():
         fileOp = FileOperation(f)
         sb = StringIO()
-        suffix = f.split('.')[1]
-        if suffix in ('docx'):
+        suffix = f.split('.')[1].lower()
+        if suffix == 'docx':
             sb.write(' '.join([clean_text(line) for line
                                in fileOp.read_docx()]))
             print(f'File Name: {f}')
