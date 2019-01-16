@@ -88,8 +88,10 @@ class FileOperation(object):
                 yield ' '.join(_ for _ in pdf_reader.loadPage(page).getText('html').split(None))
                 # self.__move_processed_to_archive()
         finally:
-            del pdf_reader
-            del construct_file_path
+            if pdf_reader:
+                del pdf_reader
+            if construct_file_path:
+                del construct_file_path
 
     def read_docx(self):
         """
