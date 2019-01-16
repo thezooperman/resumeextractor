@@ -9,10 +9,7 @@ import spacy
 import json
 from bs4 import BeautifulSoup
 from spacy.util import compounding, minibatch
-
 from fileop import FileOperation, walk_dir
-
-# from spacy.matcher import Matcher
 
 BASE_DIR = pathlib.Path.cwd()
 MODEL_PATH = BASE_DIR / 'model'
@@ -64,10 +61,16 @@ TRAIN_DATA = [
      {"entities": [(0, 12, 'NAME'), (46, 58, 'MOB'), (13, 35, 'EMAIL'), (490, 507, 'DESG'), (470, 487, 'Companies worked at'), (2081, 2090, 'DESG'), (2052, 2078, 'Companies worked at'), (2296, 2351, 'SKILLS'), (2369, 2420, 'SKILLS'), (2431, 2478, 'SKILLS'), (139, 189, 'DEGREE'), (557, 567, 'LOCATION')]}),
     ('Shaan Shah Analytics & Decision Science Professional DESCRIPTION 4 years of analytics experience across digital ad-tech and retail customer engagement. Skilled at applying quantitative analyses, statistical models and machine learning on scale to solve business problems. Hometown Patna - 395009 Gujarat PHONE +91 95377 28145 EMAIL shanshrey93@gmail.com EXPERIENCE Sep-17 Ongoing Senior Business Analyst Dunnhumby Analytics Gurgaon Developed hierarchical predictive models to predict customers next purchase across 800+ categories for a retail store using a blend of logistic regression, random forest and GBM Developed Recommender System models based on collaborative filtering to predict likelihood of product acquisition at brand product family level Responsible for generating targeting algorithms, campaign measurement and management Solved campaign funding transparency issue by creating vendor dashboard in Tableau Sep-15 Sep-17 Decision Scientist Mu Sigma Analytics Bangalore Conceptualized a framework to define and track User Engagement for a leading content publishing website. Developed an Automated Power BI dashboard to monitor the same Led a team of three analysts to develop a competitor intelligence pipeline, with python web scraper and machine learning based (Nave Bayes Text Classifier in Azure ML) filter to pick most relevant articles Applied statistical modelling (Lasso Regression in R) to decode valuation of open market digital ads and used the same to benchmark performance of reserved ad placement Worked in a team of five to develop a strategy to mitigate the unsold inventory for a leading display advertising client, using Random forest regression in R to figure out feature importance and modelled Sell- Through-Rate as linear regression Worked on various automation using VBA Macro, PoweShell script SKILLSET High Proficiency: Python, PySpark, SQL, Excel, SCOPE for analyses Power BI, PowerPoint for visualization Hypothesis Testing, Design of Experiments, RegressionModelling, Decision Trees, Random Forest, Boosting, Bagging Intermediate Proficiency: R for analysis, VBA, PowerShell for automation Tableau for visualization RECOGNITION SPOT Award for creativity displayed in streamlining data flow and thereby reducing report development time by 80% EDUCATION NIT-Surat, B.Tech - Mechanical Engineering, CGPA 8.2',
      {"entities": [(0, 10, 'NAME'), (332, 353, 'EMAIL'), (311, 325, 'MOB'), (281, 286, 'LOCATION'), (1860, 1928, 'SKILLS'), (2101, 2140, 'SKILLS'), (76, 150, 'SKILLS'), (2306, 2337, 'DEGREE'), (404, 413, 'Companies worked at'), (380, 403, 'DESG'), (955, 973, 'Companies worked at'), (936, 954, 'DESG'), (65, 72, 'Years of Experience')]}),
-    ('Tanaji Rathi +91-73541 90018 | rthmeghna17@gmail.com | www.linkedin.com/in/meghna-rathi/ Analytics professional with ~8 years of experience in institutionalizing data driven decision making across Marketing Strategy & Commercial Operations teams, with proven competency in project management and client communication Work Experience DECISION SCIENTIST | MU SIGMA BUSINESS SOLUTIONS PVT. LTD. ROI Analytics Market Mix Modeling Quantified the impact of several marketing and promotional channels on sales of high performance drugs for a global pharmaceutical client Designed future spending scenarios by optimizing budget allocation and national level investments across channels and regions using mixed models Implemented Marketing Mix models across 5 must win markets, working alongside marketing and strategy team to optimize ROI from multiple marketing channels Market Size Forecasting & Product Opportunity Calculation Predicted the market size of NPD drug for a leading pharmaceutical client by deploying a forecasting model Measured the product opportunity for a new drug in the consumer healthcare sector, using learnings from analogous products and market research and using linear regression to quantify effects of variables Simulated product opportunity calculation using a scenario planner providing customizable input options/scenarios, customized to the data and business problem in hand Test Control Lift Analysis Performed test-and-control analysis for a pharmaceutical client to measure campaign effectiveness for high-performance drugs Used test-control matching algorithms and lift measurement techniques to identify true impact of promotional campaigns and their effectiveness for various market-product combinations Exploratory Data Analysis Automation Tool Developed an automated tool in R Shiny to perform exploratory data analysis (EDA) and bivariate statistical testing using dynamic selections from the user to provide interactive visualizations Skills Mathematical Technical Mixed Models R & R Shiny Linear Regression MS Excel & VBA Time Series Modeling/Forecasting SQL Analytical Data Set Preparation Python Education B.E. COMPUTER SCIENCE EDUCATION | S.G.S.I.T.S (INDORE) CGPA 7.6/10 Additional Activities ACTIVE MEMBER | TOASTMASTERS INTERNATIONAL Member of Toastmasters, an international organization aimed at developing public speaking and leadership skills, since 2017 Served as club officer as the Vice-President Membership across one term Hobbies Hand Lettering Arts & Craft Reading',
+    ('TANAJI RATHI +91-73541 90018 | rthmeghna17@gmail.com | www.linkedin.com/in/meghna-rathi/ Analytics professional with ~8 years of experience in institutionalizing data driven decision making across Marketing Strategy & Commercial Operations teams, with proven competency in project management and client communication Work Experience DECISION SCIENTIST | MU SIGMA BUSINESS SOLUTIONS PVT. LTD. ROI Analytics Market Mix Modeling Quantified the impact of several marketing and promotional channels on sales of high performance drugs for a global pharmaceutical client Designed future spending scenarios by optimizing budget allocation and national level investments across channels and regions using mixed models Implemented Marketing Mix models across 5 must win markets, working alongside marketing and strategy team to optimize ROI from multiple marketing channels Market Size Forecasting & Product Opportunity Calculation Predicted the market size of NPD drug for a leading pharmaceutical client by deploying a forecasting model Measured the product opportunity for a new drug in the consumer healthcare sector, using learnings from analogous products and market research and using linear regression to quantify effects of variables Simulated product opportunity calculation using a scenario planner providing customizable input options/scenarios, customized to the data and business problem in hand Test Control Lift Analysis Performed test-and-control analysis for a pharmaceutical client to measure campaign effectiveness for high-performance drugs Used test-control matching algorithms and lift measurement techniques to identify true impact of promotional campaigns and their effectiveness for various market-product combinations Exploratory Data Analysis Automation Tool Developed an automated tool in R Shiny to perform exploratory data analysis (EDA) and bivariate statistical testing using dynamic selections from the user to provide interactive visualizations Skills Mathematical Technical Mixed Models R & R Shiny Linear Regression MS Excel & VBA Time Series Modeling/Forecasting SQL Analytical Data Set Preparation Python Education B.E. COMPUTER SCIENCE EDUCATION | S.G.S.I.T.S (INDORE) CGPA 7.6/10 Additional Activities ACTIVE MEMBER | TOASTMASTERS INTERNATIONAL Member of Toastmasters, an international organization aimed at developing public speaking and leadership skills, since 2017 Served as club officer as the Vice-President Membership across one term Hobbies Hand Lettering Arts & Craft Reading',
      {"entities": [(0, 12, 'NAME'), (14, 28, 'MOB'), (31, 52, 'EMAIL'), (118, 125, 'Years of Experience'), (333, 351, 'DESG'), (354, 391, 'Companies worked at'), (2013, 2024, 'SKILLS'), (2043, 2057, 'SKILLS'), (2091, 2094, 'SKILLS'), (2127, 2133, 'SKILLS'), (2144, 2175, 'DEGREE')]}),
     ('sss Avirup Rathi +91-73541 90018 | rthmeghna17@gmail.com | www.linkedin.com/in/meghna-rathi/ Analytics professional with ~8 years of experience in institutionalizing data driven decision making across Marketing Strategy & Commercial Operations teams, with proven competency in project management and client communication Work Experience DECISION SCIENTIST | MU SIGMA BUSINESS SOLUTIONS PVT. LTD. ROI Analytics Market Mix Modeling Quantified the impact of several marketing and promotional channels on sales of high performance drugs for a global pharmaceutical client Designed future spending scenarios by optimizing budget allocation and national level investments across channels and regions using mixed models Implemented Marketing Mix models across 5 must win markets, working alongside marketing and strategy team to optimize ROI from multiple marketing channels Market Size Forecasting & Product Opportunity Calculation Predicted the market size of NPD drug for a leading pharmaceutical client by deploying a forecasting model Measured the product opportunity for a new drug in the consumer healthcare sector, using learnings from analogous products and market research and using linear regression to quantify effects of variables Simulated product opportunity calculation using a scenario planner providing customizable input options/scenarios, customized to the data and business problem in hand Test Control Lift Analysis Performed test-and-control analysis for a pharmaceutical client to measure campaign effectiveness for high-performance drugs Used test-control matching algorithms and lift measurement techniques to identify true impact of promotional campaigns and their effectiveness for various market-product combinations Exploratory Data Analysis Automation Tool Developed an automated tool in R Shiny to perform exploratory data analysis (EDA) and bivariate statistical testing using dynamic selections from the user to provide interactive visualizations Skills Mathematical Technical Mixed Models R & R Shiny Linear Regression MS Excel & VBA Time Series Modeling/Forecasting SQL Analytical Data Set Preparation Python Education B.E. COMPUTER SCIENCE EDUCATION | S.G.S.I.T.S (INDORE) CGPA 7.6/10 Additional Activities ACTIVE MEMBER | TOASTMASTERS INTERNATIONAL Member of Toastmasters, an international organization aimed at developing public speaking and leadership skills, since 2017 Served as club officer as the Vice-President Membership across one term Hobbies Hand Lettering Arts & Craft Reading',
-     {"entities": [(4, 16, 'NAME'), (18, 32, 'MOB'), (35, 56, 'EMAIL'), (122, 129, 'Years of Experience'), (337, 355, 'DESG'), (359, 395, 'Companies worked at'), (2017, 2028, 'SKILLS'), (2047, 2061, 'SKILLS'), (2095, 2099, 'SKILLS'), (2131, 2137, 'SKILLS'), (2148, 2179, 'DEGREE')]})
+     {"entities": [(4, 16, 'NAME'), (18, 32, 'MOB'), (35, 56, 'EMAIL'), (122, 129, 'Years of Experience'), (337, 355, 'DESG'), (359, 395, 'Companies worked at'), (2017, 2028, 'SKILLS'), (2047, 2061, 'SKILLS'), (2095, 2099, 'SKILLS'), (2131, 2137, 'SKILLS'), (2148, 2179, 'DEGREE')]}),
+    ('Karthik S Cell Number:9738752517;  email : karthik.skhrr@yahoo.com ; PROFILE SUMMARY Enthusiastic professional with 4 years experience in Microsoft Technologies. Proficient with SSIS , C#, SQL, mapreduce, pig,sqoop,flume I have done multiple certifications on Data Analytics and python from IISc and Udacity. Trying to improve my knowledge and looking for a good opportunity to show case my knowledge and skills. KEY SKILLS Programming: C#, Web api , java  ,python ,unix Databases: SQL Server 2012 , SQL Server Integration Services , DynamoDB Big Data Tools  Hadoop, HDFS, MapReduce, Hive, Pig, Sqoop, Oozie Version Control : TFS , Git Cloud Technologies : AWS WORK EXPERIENCE Technology Analyst, Infosys , Bangalore Mar 2017-Present Delivered efficient packages for sending price feeds for Commerce cloud . Implemented effective date logic for pricing products Supported for SIT and launch of product and for hyper care Senior Software Engineer, Robert Bosch , Bangalore Jan 2016-Feb 2017 Made key changes in the application to make application more stable. Reduced configuration time for one ECU from 30 min to 5 min. Came up with a standard understanding document and an user manual to make the configu ration more easy. System Engineer, TCS , Bangalore Dec 2013-Dec 2015 Worked on Billing module of Health care client and delivered on time. Met tight deadlines . Involved in SAP integration for major health care client. KEY PROJECTS Product Management Console Technology Stack : SSIS , C# , SQL Server 2012 Delivered efficient packages for sending price feeds for Commerce cloud . Supported for SIT and launch of product and for hyper care Saavn Trending Songs Technology Stack: Java , Mapredu ce , Hadoop , hdfs , AWS EC2 Achieved 72 % accuracy in predicting 100 top trending songs of Saavn by successfully creating a data pipeline using MapReduce programs to filter, analyze and find trending songs from Saavns stream records URL: http s://github.com/karthikskmurthy/mapreduce/tree/master/Mapreduce/SaavnMapreduce Configuration Environment Technology Stack: C# , Web api , Sql Server 2012 , Silverlight Made key changes in the application to make application more stable. Reduced configurat ion time for one ECU from 30 min to 5 min. Came up with a standard understanding document and an user manual to make the configuration more easy. CERTIFICATIONS Microsoft Certified Professional  70-483 Programming in C# Microsoft Certified Professional  70-761 Querying data using TSQL Basics of Data Analytics  Indian Institute of Science Nanodegree in python  Udacity ACADEMIC CREDENTIALS Qualification Year Of Completion College/University Percentage/Grade PG Programme in Big data Engineering Currently Pursuing BITS Pilani Bachelor Of Engineering(EC) 2013 BIET,Davangere 81.36 Standard Xii / H.S.C. 2009 MKET PU College,Harihar 84.33 SSC 2007 MKET CBSE School,Harihar 87.33 PERSONAL DETAILS Date of Birth : 19 November 1991. Father Name : H V Srinivasa Murthy Mother Name : Sudha S Murthy Marital Status : Married Languages Known : English, Hindi, Kannada.',
+     {"entities": [(0, 9, 'NAME'), (22, 32, 'MOB'), (43, 66, 'EMAIL'), (116, 123, 'Years of Experience'), (677, 695, 'DESG'), (697, 704, 'Companies worked at'), (921, 945, 'DESG'), (947, 959, 'Companies worked at'), (921, 945, 'DESG'), (1224, 1239, 'Companies worked at'), (437, 470, 'SKILLS'), (482, 542, 'SKILLS'), (559, 607, 'SKILLS'), (626, 635, 'SKILLS'), (657, 661, 'SKILLS'), (2726, 2753, 'DEGREE'), (707, 716, 'LOCATION')]}),
+    ('BALU SAHOO  anil.sahoo129@gmail.com +918336070282/+918336070456 Overview Having 3.1 yrs of total experience in the areas of software development in Java and Hadoop environment Currently associated with HCL Technologies as Senior Software Engineer (Hadoop) Having hands on experience on HDFS,SPARK, HIVE, HBASE,KAFKA and STORM on Hortonworks (HDP2.x) platform. Deft at mapping the requirements, adept to end-to-end development and troubleshooting software and application issues. Enthusiastic have excellent communication & interpersonal skills. Skill set Big Data Ecosystems: HDFS, SPARK, HIVE, HBASE, PIG, SQOOP , OOZIE, KAFKA,ZOOKEEPER Programming Languages: Java/Scala Scripting Languages: Bash Databases: MySQL, Oracle, Teradata Tools:Eclipse, Maven,Ant Platforms: Windows 7, Linux, Application Servers:Apache Tomcat 6.0 Work History Client:Lloyds Banking Group Period: Mar 16-Till Date Domain: Banking Team Size:12 Project Details: Acumen is a Framework developed in spark using java to produce the data to hadoop Data Lake which helps in taking good judgments and quick business decisions. It is a solution to validate and ingest mainframe fixed length full and delta files to hadoop Data Lake. It has the capability of central logging mechanism using STORM and KAFKA, Also provides data lineage using Apache Atlas. Role: Worked as a Developer, part of the team involved with development of spark based framework. Responsibilities: Involved in the requirement analysis phase. Created/executed/debugged jobs through configuring the Framework Developed spark program to validate the input feed files as per business. In depth knowledge on hive data modelling. Developed Oozie workflow for scheduling and orchestrating the ETL process. Handling streaming data using Apache Kafka and Storm. Indexing streaming/Batch data to Solr using storm/Mapreduce. Developed Falcon script to pipeline the oozie workflows. Developed Spark program to publish the logs and exceptions to KAFKA topic. Documented design documents, use cases and testing reports Client:T-Mobile US Period: Dec 14-Mar 16 Domain: Telecom Team Size:15 Project Details: Data Movement Framework is an ETL Framework Tool which also includes metadata handler for its data. It is a solution to ingest data from multiple data sources, internal and external, in varied formats to a common data landing zone called the Data Lake that can subsequently host, process and publish the data to different consuming applications. Role: Worked as Hadoop Developer, part of Core team involved with development of java and Hadoop based components for ETL framework. Responsibilities: Involved in the requirement analysis phase. Involved in development and enhancement of web based ETL Framework and its metadata handler. Created/executed/debugged jobs through configuring the Framework. Extracted the data from SQLServer, Oracle, Hana, Teradata into HDFS using Sqoop in batch mode,query mode and incremental load. Worked with structured data of up to 30 TB. Involved in writing Pig scripts to transform raw data from several data sources into forming baseline data. Developed Hivescripts for end user / analyst requirements to perform ad hoc analysis. Developed HBase tables for storing Meta data to be used by other Hadoop/application specific elements. Developed Oozie workflow for scheduling and orchestrating the ETL process Developed HTML/CSS pages with Bootstrap for application UI. Documented design documents, use cases and testing reports. Assisted the production support and ingestion team on timely basis. Education Degree Discipline Institute Passing year Percentage/CGPA BTech ECE COLLEGE OF ENGINEERING,BHUBANESWAR 2013 75 Intermediate Science MCNL,ODISHA 2009 68 Secondary NA NGHS,ODISHA 2007 82 Personal Dossier Date of Birth :May 8, 1992 Permanent Address:S-2/142,NILADRI VIHAR,BHUBANESWAR,PIN-751021 Languages Known : Odia English and Hindi',
+     {"entities": [(0, 10, 'NAME'), (36, 63, 'MOB'), (12, 35, 'EMAIL'), (80, 87, 'Years of Experience'), (222, 246, 'DESG'), (202, 218, 'Companies worked at'), (576, 637, 'SKILLS'), (661, 671, 'SKILLS'), (693, 697, 'SKILLS'), (709, 732, 'SKILLS'), (739, 757, 'SKILLS'), (3629, 3638, 'DEGREE')]}),
+    ('DIP ROY deep.r09@gmail.com +918336910376 OVERVIEW Having 3years 4months of total experience in the areas of software development in Java and Scala in Hadoop environment. Having hands on experience in Spark with Scala. Having hands on experience on Hadoop, HDFS, Sqoop and Hive on Hortonworks & Google Cloud. Having hands on experience in developing web applications using Java with Play MVC Framework. Enthusiastic, quick learner and a good team player. PROFESSIONAL EXPERIENCE Currently associated with HCL Technologies as Senior Software Engineer since Oct14. SKILL SET Big Data Technologies: HDFS, Hive, Sqoop, Spark, Kafka Programming Languages: Java, Scala Scripting Languages: Bash Frameworks: Play 1.x MVC, Akka 2.4.x Version Control: SVN, Git Platforms: Windows, Linux Environment: Hortonworks, Google Cloud WORK HISTORY 1. Client : Retail Major US Period : Feb17 - Till date Team Size : 3 Project Details: Develop a highly scalable analytics platform for fast data ingestion and transformation of network logs over UDP/TCP protocol. This platform can adapt to the speed of the business by providing relevant, accessible, timely, connected and accurate security data. Responsibilities: Designed and developed Akka system which speaks with its components. Developed UDP/TCP to Kafka bridge in scala-akka framework. Developed Kafka consumer for persisting ingested data to Google Storage and Elasticsearch using spark streaming and scala. Performance tuning of akka system and spark job. Created a parser for various log vendors and send output to Elastic Search. Implementing system and application monitoring with Prometheus and Grafana Developing spark streaming receiver for Google Pubsub and Logstash.2. Client : Big Data COE HCL Period : Dec 16 Jan16 Team Size : 1 Project Details: Upgrade the existing Hadoop ETL job involving various Hadoop elements like Pig, MR etc to Spark. This is undertaken to improve the performance and keep up to the current industry standards. Responsibilities: Analysis of existing Hadoop modules and measure the feasibility of changes required. Prepared design document for the required changes. Involved in building pipeline framework for job using Spark. Developed kafka consumer module in spark streaming. Involved in writing shell scripts modules and ftl templates. Involved in optimising the spark job for fast processing. 3. Client : Telecom Major, US Period : Oct 14 Nov 16 Team Size : 15 Project Details: Prepare a Data Movement Framework, an ETL Framework Tool which also includes metadata handler for its data. A propriety solution to ingest data from multiple data sources, internal and external, in varied formats to a common data landing zone called the Data Lake that can subsequently host, process and publish the data to different consuming applications. Responsibilities: Involved in the requirement analysis with onsite and client team. Development and enhancement of web based ETL Framework and its metadata handler using Java with Play MVC. Involved in designing the REST services. Created/executed/debugged jobs through configuring the Framework. Involved in writing shell scripts modules. Involved in writing Pig scripts to transform raw data from several data sources into forming baseline data. Developed Hive scripts for end user / analyst requirements to perform ad hoc analysis. Developed Oozie workflow for scheduling and orchestrating the ETL process Documented design documents, use cases and testing reports. Assist production support team on timely basis.EDUCATION COURSE INSTITUTE MARKS YEAR B.Tech( Computer Science) Maharishi Arvind Institute of Engineering and Technology Jaipur 69.02 2014 12th Central Academy Udaipur 64.4 2010 10th Central Academy Udaipur 74.8 2008 PERSONAL DOSSIER Date of Birth : November 9, 1991 Permanent Address : 19, New Dore Nagar, Near Railway Bridge, Udaipur (Raj.) 313002 Languages Known : English, Hindi and Bengali Passport No : N8133785',
+     {"entities": [(0, 7, 'NAME'), (28, 40, 'MOB'), (8, 26, 'EMAIL'), (57, 63, 'Years of Experience'), (524, 548, 'DESG'), (504, 520, 'Companies worked at'), (248, 306, 'SKILLS'), (595, 626, 'SKILLS'), (650, 661, 'SKILLS'), (683, 687, 'SKILLS'), (790, 815, 'SKILLS'), (3567, 3592, 'DEGREE')]})
 ]
 
 
@@ -81,29 +84,10 @@ def clean_text(text):
 
 
 def test_read():
-    try:
-        for f in walk_dir():
-            fileOp = FileOperation(f)
-            sb = StringIO()
-            suffix = f.split('.')[1].lower()
-            if suffix == 'docx':
-                sb.write(' '.join(clean_text(line) for line
-                                  in fileOp.read_docx()))
-                print(f'File Name: {f}')
-                print('*' * 60)
-            elif suffix == 'pdf':
-                s = ''.join(clean_text(strip_html(line)) for line
-                            in fileOp.read_pdf())
-                sb.write(' '.join(_ for _ in s.split(None)))
-                print(f'File Name: {f}')
-                print('*' * 60)
-            if len(sb.getvalue()) > 0:
-                print(sb.getvalue().strip())
-                print()
-                sb.close()
-    finally:
-        if sb:
-            sb.close()
+    for r in getResume():
+        print(r)
+        print('-' * 70)
+        print('\n')
 
 
 def convert_dataturks_to_spacy(dataturks_JSON_FilePath):
@@ -111,7 +95,6 @@ def convert_dataturks_to_spacy(dataturks_JSON_FilePath):
         training_data = []
         # lines = []
         with open(dataturks_JSON_FilePath, 'r', encoding='utf-8') as f:
-            # lines = f.readlines()
             for line in f:
                 data = json.loads(line)
                 text = clean_text(strip_html(data['content']))
@@ -136,29 +119,36 @@ def convert_dataturks_to_spacy(dataturks_JSON_FilePath):
     return None
 
 
+def getResume():
+    for f in walk_dir():
+        try:
+            fileOp = FileOperation(f)
+            sb = StringIO()
+            suffix = f.split('.')[1].lower()
+            if suffix == 'docx':
+                sb.write(''.join(clean_text(line)
+                                 for line in fileOp.read_docx()))
+            elif suffix == 'pdf':
+                s = ''.join(clean_text(strip_html(_))
+                            for _ in fileOp.read_pdf())
+                sb.write(' '.join(_ for _ in s.split()))
+            if len(sb.getvalue()) > 0:
+                yield sb.getvalue()
+            sb.close()
+            del sb
+            del fileOp
+        except Exception as ex:
+            print(f'ERROR: {ex}')
+
+
 def run_model(model):
     print('Running against the trained model')
     nlp = spacy.load(model)  # load existing spaCy model
     print("Loaded model '%s'" % model)
     print()
     # pathlib.Path('/home/aritraghosh/MyWorkspace/resumeextractor/test_data/')):
-    for f in walk_dir():
-        fileOp = FileOperation(f)
-        sb = StringIO()
-        suffix = f.split('.')[1].lower()
-        if suffix == 'docx':
-            sb.write(' '.join([clean_text(line) for line
-                               in fileOp.read_docx()]))
-            print(f'File Name: {f}')
-            print('*' * 60)
-        elif suffix == 'pdf':
-            s = ''.join(clean_text(strip_html(line)) for line
-                        in fileOp.read_pdf())
-            sb.write(' '.join(_ for _ in s.split(None)))
-            print(f'File Name: {f}')
-            print('*' * 60)
-        doc = nlp(sb.getvalue().strip())
-        sb.close()
+    for resume in getResume():
+        doc = nlp(resume)
         if len(doc.ents) > 0:
             print("Entities", [(ent.text, ent.label_) for ent in doc.ents])
             print()
@@ -234,8 +224,6 @@ def main(model=None, output_dir=None, n_iter=100, train_test="True"):
         test_data = []
         test_data = convert_dataturks_to_spacy(
             BASE_DIR / 'test_data' / 'testdata.json')
-        # for text, _ in TRAIN_DATA:
-        # for text, in test_data:
         print('\nTesting on Test Data')
         for text, _ in test_data:
             doc = nlp(text)
@@ -244,7 +232,7 @@ def main(model=None, output_dir=None, n_iter=100, train_test="True"):
         print('\nTesting on Train Data')
         # save model to output directory
         if output_dir is not None:
-            output_dir = BASE_DIR / output_dir  # pathlib.Path(output_dir)
+            output_dir = BASE_DIR / output_dir
             if not output_dir.exists():
                 output_dir.mkdir()
             nlp.to_disk(output_dir)
