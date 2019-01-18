@@ -94,6 +94,7 @@ TRAIN_DATA = [
 ]
 
 
+
 def strip_html(content):
     soup = BeautifulSoup(content, features='lxml')
     return soup.get_text().strip()
