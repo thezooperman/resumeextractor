@@ -88,7 +88,9 @@ TRAIN_DATA = [
     ('VANAJI R Phone:+91-7354190018/+91-7324190019 Email: rthmeghna17@gmail.com Analytics professional with ~8 years of experience in institutionalizing data driven decision making across Marketing Strategy & Commercial Operations teams, with proven competency in project management and client communication',
      {"entities": [(0, 8, 'NAME'), (16, 29, 'MOB'), (31, 44, 'MOB'), (52, 73, 'EMAIL'), (103, 110, 'Years of Experience')]}),
     ('Saavan S chirag.shetty3939@gmail.com Contact: +91-9740870060;+91-9741870061 Education Qualifications Institution University/Board Year Of Passing Aggregate B. E (Electronics and Communication Engineering) RNS Institute Of Technology Visvesvaraya Technological University 2016',
-     {"entities": [(0, 8, 'NAME'), (47, 60, 'MOB'), (62, 75, 'MOB'), (9, 36, 'EMAIL'), (156, 204, 'DEGREE')]})
+     {"entities": [(0, 8, 'NAME'), (47, 60, 'MOB'), (62, 75, 'MOB'), (9, 36, 'EMAIL'), (156, 204, 'DEGREE')]}),
+    ('Daavan S chirag.shetty3939@gmail.com Contact: 9740870060;9741870061 Education Qualifications Institution University/Board Year Of Passing Aggregate B. E (Electronics and Communication Engineering) RNS Institute Of Technology Visvesvaraya Technological University 2016',
+     {"entities": [(0, 8, 'NAME'), (46, 56, 'MOB'), (57, 67, 'MOB'), (9, 36, 'EMAIL'), (148, 196, 'DEGREE')]})
 ]
 
 
