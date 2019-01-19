@@ -38,10 +38,9 @@ def get_docx_text(path):
         if texts:
             paragraphs.append(''.join(texts))
 
-    # s = '\n'.join(paragraphs)
-    return ' '.join(clean_text(_) for _ in '\n'.join(paragraphs).split())
+    # return '\n'.join(paragraphs)
+    return ' '.join(clean_text(_) for _ in ' '.join(paragraphs).split())
 
 if __name__ == '__main__':
-    # path = 'test_data/Resume_Priyanka_Sharma.DOCX'
-    path = 'test_data/Resume_Anil_Sahoo.docx'
+    path = 'input/Soumik  Mazumder.docx'
     print(get_docx_text(path))
