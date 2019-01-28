@@ -110,8 +110,9 @@ def convert_brat_to_spacy(brat_directory='/home/aritraghosh/Downloads/brat-v1.3_
                 labels = []
                 for line in fp:
                     splitted_line = line.split()
+                    # start pos, end pos, label name
                     labels.append(
-                        (int(splitted_line[2]), int(splitted_line[3]), splitted_line[1]))
+                        (int(splitted_line[2]), int(splitted_line[3]), splitted_line[1].replace("_", " ")))
             train_data.append((content, {"entities": labels}))
         return train_data
     except Exception as ex:
