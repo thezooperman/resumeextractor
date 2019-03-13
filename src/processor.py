@@ -5,11 +5,13 @@ import random
 import string
 from io import StringIO
 import pathlib
-import spacy
+# import spacy
 import json
 from bs4 import BeautifulSoup
-from spacy.util import compounding, minibatch
+# from spacy.util import compounding, minibatch
 from fileop import FileOperation, walk_dir
+import os
+import errno
 
 BASE_DIR = pathlib.Path.cwd()
 MODEL_PATH = BASE_DIR / 'model'
@@ -34,35 +36,52 @@ def test_read():
         print('-' * 70)
         print('\n')
 
+
 def clean_email():
     pass
+
 
 def clean_phone(phone):
     '''
         Phone nos should be in +91xxxxxxxxxx format
     '''
+    def _check_length(text):
+        if not text:
+            raise ValueError(errno.EINVAL, os.strerror(errno.EINVAL), text)
+        assert (len(text) >= 10), 'Phone numbers must be 10 digits at least'
+        # return last 10 digits, if length > 10
+        text = ''.join(c for c in text if c.isdigit())
+        if len(text) > 10:
+            text = text[-10:]
+        return text
+
     if not phone:
         return None
-    phone = phone.strip()        
-    #remove extra space if present
-    phone = ''.join(c for c in phone.split(None)) #''.join(c for c in phone if not c.isspace())
-    #check if phone has multiple nos
+
+    # remove extra space if present
+    phone = ''.join(c for c in phone.split())
+    #''.join(c for c in phone if c.isdigit())
+
+    tokenizer = None
+    # check if phone has multiple nos
     if ';' in phone:
         tokenizer = phone.split(';')
     elif '/' in phone:
         tokenizer = phone.split('/')
     prepend = '+91'
-    final_list = [] #store phone nos here post processing
+    final_list = []  # store phone nos here post processing
 
-    #if phone starts with 0, remove 0
-    if phone[0] == '0':
-        phone = phone[1:]
-    #remove +91
-    if prepend in phone:
-        index = phone.index(prepend)
-        phone = phone[index + len(prepend) : ]
+    # check if phone has 10 or more characters
+    if tokenizer:
+        i = 0
+        while i < len(tokenizer):
+            tokenizer[i] = _check_length(tokenizer[i])
+            i += 1
+    else:
+        phone = _check_length(phone)
 
-    
+    return tokenizer if tokenizer else phone
+
 
 def convert_dataturks_to_spacy(dataturks_JSON_FilePath):
     try:
@@ -248,3 +267,4 @@ if __name__ == '__main__':
     plac.call(main)
     # test_read()
     # convert_brat_to_spacy()
+    # print(clean_phone('+91-888-440-4883/09988 048821'))
