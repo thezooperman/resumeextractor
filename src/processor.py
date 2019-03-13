@@ -69,7 +69,6 @@ def clean_phone(phone):
     elif '/' in phone:
         tokenizer = phone.split('/')
     prepend = '+91'
-    final_list = []  # store phone nos here post processing
 
     # check if phone has 10 or more characters
     if tokenizer:
