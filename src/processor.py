@@ -1,17 +1,19 @@
 # /usr/bin/env python
 
-import plac
+import errno
+import json
+import os
+import pathlib
 import random
 import string
 from io import StringIO
-import pathlib
-# import spacy
-import json
+
+import plac
+import spacy
 from bs4 import BeautifulSoup
-# from spacy.util import compounding, minibatch
+from spacy.util import compounding, minibatch
+
 from fileop import FileOperation, walk_dir
-import os
-import errno
 
 BASE_DIR = pathlib.Path.cwd()
 MODEL_PATH = BASE_DIR / 'model'
@@ -43,7 +45,7 @@ def clean_email():
 
 def clean_phone(phone):
     '''
-        Phone nos should be in +91xxxxxxxxxx format
+        Phone nos should be in 91xxxxxxxxxx format
     '''
     def _check_length(text):
         if not text:
@@ -51,7 +53,7 @@ def clean_phone(phone):
         assert (len(text) >= 10), 'Phone numbers must be 10 digits at least'
         # return last 10 digits, if length > 10
         text = ''.join(c for c in text if c.isdigit())
-        if len(text) > 10:
+        if len(text) >= 10:
             text = text[-10:]
         return text
 
@@ -68,7 +70,7 @@ def clean_phone(phone):
         tokenizer = phone.split(';')
     elif '/' in phone:
         tokenizer = phone.split('/')
-    prepend = '+91'
+    prepend = '91'
 
     # check if phone has 10 or more characters
     if tokenizer:
@@ -266,4 +268,4 @@ if __name__ == '__main__':
     # plac.call(main)
     # test_read()
     # convert_brat_to_spacy()
-    print(clean_phone('+91-888-440-4883/09988 048821'))
+    print(clean_phone('+91-888-440-483/09988 048821'))
