@@ -75,10 +75,10 @@ def clean_phone(phone):
     if tokenizer:
         i = 0
         while i < len(tokenizer):
-            tokenizer[i] = _check_length(tokenizer[i])
+            tokenizer[i] = prepend + _check_length(tokenizer[i])
             i += 1
     else:
-        phone = _check_length(phone)
+        phone = prepend + _check_length(phone)
 
     return tokenizer if tokenizer else phone
 
@@ -264,7 +264,7 @@ def main(model=None, output_dir=None, n_iter=100, train_test="True"):
 
 
 if __name__ == '__main__':
-    plac.call(main)
+    # plac.call(main)
     # test_read()
     # convert_brat_to_spacy()
-    # print(clean_phone('+91-888-440-4883/09988 048821'))
+    print(clean_phone('+91-888-440-4883/09988 048821'))
