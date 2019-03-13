@@ -14,6 +14,8 @@ from fileop import FileOperation, walk_dir
 BASE_DIR = pathlib.Path.cwd()
 MODEL_PATH = BASE_DIR / 'model'
 printable = set(string.printable)
+ONLY_DIGITS = set(string.digits)
+
 blacklisted_punctuation = {"'", '\\', '"'}
 
 
@@ -32,6 +34,35 @@ def test_read():
         print('-' * 70)
         print('\n')
 
+def clean_email():
+    pass
+
+def clean_phone(phone):
+    '''
+        Phone nos should be in +91xxxxxxxxxx format
+    '''
+    if not phone:
+        return None
+    phone = phone.strip()        
+    #remove extra space if present
+    phone = ''.join(c for c in phone.split(None)) #''.join(c for c in phone if not c.isspace())
+    #check if phone has multiple nos
+    if ';' in phone:
+        tokenizer = phone.split(';')
+    elif '/' in phone:
+        tokenizer = phone.split('/')
+    prepend = '+91'
+    final_list = [] #store phone nos here post processing
+
+    #if phone starts with 0, remove 0
+    if phone[0] == '0':
+        phone = phone[1:]
+    #remove +91
+    if prepend in phone:
+        index = phone.index(prepend)
+        phone = phone[index + len(prepend) : ]
+
+    
 
 def convert_dataturks_to_spacy(dataturks_JSON_FilePath):
     try:
